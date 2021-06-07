@@ -1,0 +1,11 @@
+[build-system]
+requires = ["flit_core >=2,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+module = "text_adventure_parser"
+author = "Davy Mitchell"
+author-email = "daftspaniel@gmail.com"
+home-page = "https://github.com/daftspaniel/text_adventure_parser"
+description-file = "README.md"
+

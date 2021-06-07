@@ -3,28 +3,33 @@ from text_adventure_parser.parse_result import ParseResult
 
 
 class Parser:
-    def __init__(self, verbs, nouns, shorthands) -> object:
+    """Core Parsing object"""
+
+    def __init__(self, verbs, nouns, shorthands) -> None:
         self.verbs = verbs
         self.nouns = nouns
         self.shorthands = shorthands
 
     def parse(self, command: str) -> ParseResult:
+        """Parse the raw command string from the user."""
         if len(command) == 0:
             return ParseResult()
 
         command = command.lower()
 
-        is_single_word = command.find(' ') == -1
+        is_single_word = command.find(" ") == -1
 
         if is_single_word and command in self.shorthands.keys():
             command = self.shorthands[command]
-            is_single_word = command.find(' ') == -1
+            is_single_word = command.find(" ") == -1
 
-        print('COMMAND:', command)
+        print("COMMAND:", command)
 
-        return self._parse_single_word(command) \
-            if is_single_word \
+        return (
+            self._parse_single_word(command)
+            if is_single_word
             else self._parse_multiple_words(command)
+        )
 
     def _parse_single_word(self, command):
         result = ParseResult()
@@ -37,7 +42,7 @@ class Parser:
 
     def _parse_multiple_words(self, command):
         result = ParseResult()
-        words = command.split(' ')
+        words = command.split(" ")
 
         if words[0] in self.verbs:
             result.verb = words[0]
@@ -47,3 +52,7 @@ class Parser:
         result.understood = True
 
         return result
+
+    def dummy(self):
+        """Dummy method"""
+        print(self.verbs)
