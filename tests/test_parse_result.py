@@ -6,5 +6,7 @@ class TestParseResult(TestCase):
     def test_init(self):
         result = ParseResult()
         self.assertEqual(result.understood, False)
+        self.assertEqual(result.understood_verb, False)
+        self.assertEqual(result.understood_noun, False)
         self.assertEqual(result.verb, '')
         self.assertEqual(result.noun, '')
