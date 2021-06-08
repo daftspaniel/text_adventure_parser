@@ -1,4 +1,4 @@
-from unittest import TestCase
+from unittest import TestCase, result
 from text_adventure_parser.parse_result import ParseResult
 
 
@@ -10,3 +10,6 @@ class TestParseResult(TestCase):
         self.assertEqual(result.understood_noun, False)
         self.assertEqual(result.verb, '')
         self.assertEqual(result.noun, '')
+    def test_str(self):
+        result = ParseResult()
+        self.assertEqual(str(result),'False\t\t')

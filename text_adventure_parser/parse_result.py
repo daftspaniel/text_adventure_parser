@@ -5,9 +5,10 @@ class ParseResult:
     """Result class to be used by apps to action operations."""
 
     def __init__(self):
-        self.understood = False
         self.verb = ""
         self.noun = ""
+        self.understood_verb = False
+        self.understood_noun = False
 
     def __str__(self) -> str:
         return (
@@ -18,6 +19,7 @@ class ParseResult:
             + (self.noun if self.noun is not None else "")
         )
 
-    def dummy(self):
-        """dummy method"""
-        print("Hey!" + self.verb)
+    @property
+    def understood(self):
+        """Overall flag for whether the command was understood."""
+        return self.understood_verb and self.understood_noun

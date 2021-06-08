@@ -1,4 +1,5 @@
 """ Toy verb/noun parser for a game or something """
+from typing import List
 from text_adventure_parser.parse_result import ParseResult
 
 
@@ -10,49 +11,32 @@ class Parser:
         self.nouns = nouns
         self.shorthands = shorthands
 
+    def get_known_verbs(self) -> List[str]:
+        """Return the list of known verbs."""
+        return self.verbs.copy()
+
     def parse(self, command: str) -> ParseResult:
         """Parse the raw command string from the user."""
         if len(command) == 0:
             return ParseResult()
 
+        command = self._preprocess(command)
+
+        return self._parse(command)
+
+    def _preprocess(self, command):
+        short = self.shorthands
         command = command.lower()
+        return short[command] if command in short.keys() else command
 
-        is_single_word = command.find(" ") == -1
-
-        if is_single_word and command in self.shorthands.keys():
-            command = self.shorthands[command]
-            is_single_word = command.find(" ") == -1
-
-        print("COMMAND:", command)
-
-        return (
-            self._parse_single_word(command)
-            if is_single_word
-            else self._parse_multiple_words(command)
-        )
-
-    def _parse_single_word(self, command):
-        result = ParseResult()
-        if command in self.verbs:
-            verb = command
-            result.verb = verb
-            result.noun = None
-            result.understood = True
-        return result
-
-    def _parse_multiple_words(self, command):
+    def _parse(self, command):
         result = ParseResult()
         words = command.split(" ")
-
+        result.verb = words[0]
+        result.noun = words[1]
         if words[0] in self.verbs:
-            result.verb = words[0]
+            result.understood_verb = True
         if words[1] in self.nouns:
-            result.noun = words[1]
-
-        result.understood = True
+            result.understood_noun = True
 
         return result
-
-    def dummy(self):
-        """Dummy method"""
-        print(self.verbs)
