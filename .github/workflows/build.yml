@@ -32,5 +32,4 @@ jobs:
                    ls
 
             - name: Run tox
-              run: |
-                  python -m tox
+              run: tox
