@@ -1,6 +1,28 @@
+""" Adventure game location module."""
+
+
 class Room:
-    """ Demo game room object"""
+    """Demo game room object."""
+
     def __init__(self, description, exits, items):
-        self.description = description
-        self.exits = exits
-        self.items = items
+        self._description = description
+        self._exits = exits
+        self._items = items
+
+    def __str__(self):
+        return self.description + " " + str(self.exits) + str(self.items)
+
+    @property
+    def description(self):
+        """Current description of the room."""
+        return self._description
+
+    @property
+    def exits(self):
+        """Current exits of the room."""
+        return self._exits
+
+    @property
+    def items(self):
+        """Current items in the room."""
+        return self._items
