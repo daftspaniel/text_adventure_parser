@@ -10,9 +10,10 @@ shorthands = {
     'n': 'go north', 's': 'go south', 'e': 'go east', 'w': 'go west'
 }
 
-print('Welcome to the Parser demo!')
+print('Welcome to the Parser mini demo.')
+parser = Parser(verbs, nouns, shorthands)
+
 while True:
-    parser = Parser(verbs, nouns, shorthands)
     command = input('\nWhat now?\n')
     result: ParseResult = parser.parse(command)
     print(result)
