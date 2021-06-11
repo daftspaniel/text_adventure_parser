@@ -37,5 +37,5 @@ class ParseResult:
 
 
 def yes_no(flag):
-    """Boolean to natural  readable string."""
+    """Boolean to natural readable string."""
     return "Yes" if flag else "No"
