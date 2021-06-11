@@ -10,28 +10,31 @@ class Parser:
         self.verbs = verbs
         self.nouns = nouns
         self.shorthands = shorthands
+        self._result = ParseResult("")
 
     def get_known_verbs(self) -> List[str]:
         """Return the list of known verbs."""
         return self.verbs.copy()
 
     def parse(self, command: str) -> ParseResult:
-        """Parse the raw command string from the user."""
+        """Parse the raw command from the user and return ParseResult."""
+        self._result = ParseResult(command)
         if len(command) == 0:
-            return ParseResult()
+            return self._result
+        self._preprocess(command)
 
-        command = self._preprocess(command)
-
-        return self._parse(command)
+        return self._parse()
 
     def _preprocess(self, command):
         short = self.shorthands
         command = command.lower()
-        return short[command] if command in short.keys() else command
+        self._result.processed_command = (
+            short[command] if command in short.keys() else command
+        )
 
-    def _parse(self, command):
-        result = ParseResult()
-        words = command.split(" ")
+    def _parse(self):
+        result = self._result
+        words = result.processed_command.split(" ")
         result.verb = words[0]
         result.noun = words[1]
         if words[0] in self.verbs:

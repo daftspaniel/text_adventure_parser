@@ -3,10 +3,10 @@
 from text_adventure_parser.parser import Parser
 from text_adventure_parser.parse_result import ParseResult
 
-verbs = ['exit', 'go', 'get', 'put', 'inventory', 'look']
-nouns = ['gold', 'north', 'south', 'east', 'west']
+verbs = ['exit', 'go', 'get', 'put',  'look']
+nouns = ['inventory','gold', 'north', 'south', 'east', 'west']
 shorthands = {
-    'i': 'inventory',
+    'i': 'look inventory',
     'n': 'go north', 's': 'go south', 'e': 'go east', 'w': 'go west'
 }
 
@@ -15,5 +15,9 @@ parser = Parser(verbs, nouns, shorthands)
 
 while True:
     command = input('\nWhat now?\n')
+
     result: ParseResult = parser.parse(command)
-    print(result)
+
+    print("\n" + ("-"*50) + "\n")
+    print(result.explain())
+    print("-"*50)
