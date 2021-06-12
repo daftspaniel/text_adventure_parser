@@ -24,8 +24,12 @@ class Game:
     def __init__(self):
         self.parser = Parser(verbs, nouns, shorthands)
         self.player = Player()
-        self.arena = [
-            [Room("You are in a small wooden hut.", ["N"], ["gold"])]]
+        self.arena = [[]]
+        self._build_world()
+
+    def _build_world(self):
+        room = Room("You are in a small wooden hut.", ["S"], ["gold"])
+        self.arena = [0].append(room)
 
     @property
     def current_room(self) -> Room:
@@ -44,24 +48,24 @@ def main():
     game = Game()
 
     while True:
-        print('*'*50)
+        print("*" * 50)
         print()
         print(game.current_room.description)
         print()
 
         items = game.current_room.items
         if len(items) > 0:
-            print('Items : ')
+            print("Items : ")
             for item in items:
                 print(item)
-            print('\n')
+            print("\n")
 
         exits = game.current_room.exits
         if len(exits) > 0:
-            print('Exits : ')
-            for exit in exits:
-                print(exit)
-            print('\n')
+            print("Exits : ")
+            for room_exit in exits:
+                print(room_exit)
+            print("\n")
 
         command = input("\nWhat now?\n")
         game.handle_user_command(command)
