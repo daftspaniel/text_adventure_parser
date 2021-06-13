@@ -1,4 +1,5 @@
 """ Result of a Parsing operation """
+from text_adventure_parser.text_util import yes_no
 
 
 class ParseResult:
@@ -34,8 +35,3 @@ class ParseResult:
         result += "Verb understood  : " + yes_no(self.understood_verb) + "\n"
         result += "Noun understood  : " + yes_no(self.understood_noun) + "\n"
         return result
-
-
-def yes_no(flag):
-    """Boolean to natural readable string."""
-    return "Yes" if flag else "No"
