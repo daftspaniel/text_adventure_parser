@@ -21,9 +21,9 @@ class Parser:
         self._result = ParseResult(command)
         if len(command) == 0:
             return self._result
-        self._preprocess(command)
-
-        return self._parse()
+        if self._preprocess(command):
+            return self._parse()
+        return self._result
 
     def _preprocess(self, command):
         short = self.shorthands
@@ -31,6 +31,7 @@ class Parser:
         self._result.processed_command = (
             short[command] if command in short.keys() else command
         )
+        return self._result.processed_command.find(" ") > -1
 
     def _parse(self):
         result = self._result

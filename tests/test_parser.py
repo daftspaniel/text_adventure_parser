@@ -30,6 +30,14 @@ class TestParser(TestCase):
         self.assertEqual(result.noun, 'north')
         self.assertEqual(result.understood, True)
 
+    def test_parse_unknown_shorthand(self):
+        result = self.parser.parse('v')
+        self.assertEqual(result.understood, False)
+        self.assertEqual(result.understood_verb, False)
+        self.assertEqual(result.understood_noun, False)
+        self.assertEqual(result.verb, '')
+        self.assertEqual(result.noun, '')        
+
     def test_parse_single_word_shorthand_and_command(self):
         result = self.parser.parse('i')
         self.assertEqual(result.verb, 'look')

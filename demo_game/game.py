@@ -1,6 +1,7 @@
 """ DEMO text adventure game """
 from text_adventure_parser.parser import Parser
 from text_adventure_parser.parse_result import ParseResult
+from text_adventure_parser.text_util import list_to_text
 
 from demo_game.player import Player
 from demo_game.room import Room
@@ -36,27 +37,21 @@ class Game:
 def main():
     """The game loop"""
     print("Welcome to the game brave adventurer!")
+    print("Type 'help' or '?' to see what words I understand.")
     game = Game()
 
     while True:
+        print("")
         print("*" * 50)
-        print()
+        print("")
         print(game.current_room.description)
-        print()
+        print("")
 
         items = game.current_room.items
-        if len(items) > 0:
-            print("Items : ")
-            for item in items:
-                print(item)
-            print("\n")
-
         exits = game.current_room.exits
-        if len(exits) > 0:
-            print("Exits : ")
-            for room_exit in exits:
-                print(room_exit)
-            print("\n")
+
+        print("Items : " + list_to_text(items))
+        print("Exits : " + list_to_text(exits))
 
         command = input("\nWhat now?\n")
         game.handle_user_command(command)
