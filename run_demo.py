@@ -3,15 +3,10 @@
 from text_adventure_parser.parser import Parser
 from text_adventure_parser.parse_result import ParseResult
 
-verbs = ["exit", "go", "get", "put", "look"]
-nouns = ["inventory", "gold", "north", "south", "east", "west"]
-shorthands = {
-    "i": "look inventory",
-    "n": "go north",
-    "s": "go south",
-    "e": "go east",
-    "w": "go west",
-}
+from demo_game.resources import get_vocabulary
+
+verbs, nouns, shorthands = get_vocabulary()
+
 
 print("Welcome to the Parser mini demo.")
 parser = Parser(verbs, nouns, shorthands)

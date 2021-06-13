@@ -4,18 +4,9 @@ from text_adventure_parser.parse_result import ParseResult
 
 from demo_game.player import Player
 from demo_game.room import Room
+from demo_game.resources import get_vocabulary
 
-verbs = ["exit", "go", "get", "put", "inventory", "look"]
-
-nouns = ["gold", "north", "south", "east", "west"]
-
-shorthands = {
-    "i": "inventory",
-    "n": "go north",
-    "s": "go south",
-    "e": "go east",
-    "w": "go west",
-}
+verbs, nouns, shorthands = get_vocabulary()
 
 
 class Game:
@@ -28,8 +19,8 @@ class Game:
         self._build_world()
 
     def _build_world(self):
-        room = Room("You are in a small wooden hut.", ["S"], ["gold"])
-        self.arena = [0].append(room)
+        room = Room("You are in a small wooden hut.", ["S"], ["Gold"])
+        self.arena[0].append(room)
 
     @property
     def current_room(self) -> Room:
