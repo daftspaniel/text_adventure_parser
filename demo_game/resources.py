@@ -1,5 +1,8 @@
+""" Resources and data for demo game"""
+
 
 def get_vocabulary():
+    """Returnd the vocabulary list for the game."""
     verbs = ["exit", "go", "get", "put", "inventory", "look"]
 
     nouns = ["gold", "north", "south", "east", "west"]
