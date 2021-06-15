@@ -33,21 +33,24 @@ class Game:
         result: ParseResult = self.parser.parse(command)
 
         if not result.understood:
-            print("Sorry - I don't know how to ''" + command + "''")
+            print("Sorry - I don't know how to '" + command + "'")
             return
-        
-        if result.processed_command == 'look help':
-            print("\nWords I know : \n" + list_to_text(self.parser.get_known_verbs()))
+
+        if result.processed_command == "look help":
+            print("\nWords I know :")
+            print(list_to_text(self.parser.get_known_verbs()))
         else:
-            print("I understood the command but the game has hot implemented it yet.")
+            print("I understood the command.\n")
+            print("The game has not implemented '" + command + "' yet.\n")
 
 
 def main():
     """The game loop"""
+    game = Game()
+
+    print("*" * 50)
     print("\n\nWelcome to the game brave adventurer!")
     print("Type 'help' or '?' to see what words I understand.")
-    print("*" * 50)
-    game = Game()
 
     while True:
         print(" ")
