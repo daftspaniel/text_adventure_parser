@@ -31,19 +31,28 @@ class Game:
     def handle_user_command(self, command: str):
         """Parse the user command and action it."""
         result: ParseResult = self.parser.parse(command)
-        print(result)
+
+        if not result.understood:
+            print("Sorry - I don't know how to ''" + command + "''")
+            return
+        
+        if result.processed_command == 'look help':
+            print("\nWords I know : \n" + list_to_text(self.parser.get_known_verbs()))
+        else:
+            print("I understood the command but the game has hot implemented it yet.")
 
 
 def main():
     """The game loop"""
-    print("Welcome to the game brave adventurer!")
+    print("\n\nWelcome to the game brave adventurer!")
     print("Type 'help' or '?' to see what words I understand.")
+    print("*" * 50)
     game = Game()
 
     while True:
-        print("")
+        print(" ")
         print("*" * 50)
-        print("")
+        print(" ")
         print(game.current_room.description)
         print("")
 
