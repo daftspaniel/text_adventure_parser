@@ -18,8 +18,8 @@ class TestTextUtil(TestCase):
 
     def test_list_to_text_two(self):
         result = list_to_text(['owl', 'duck'])
-        self.assertEqual(result, 'Duck and Owl.')
+        self.assertEqual(result, 'Duck and owl.')
 
     def test_list_to_text_three(self):
         result = list_to_text(['goose', 'owl', 'duck'])
-        self.assertEqual(result, 'Duck, Goose and Owl.')
+        self.assertEqual(result, 'Duck, goose and owl.')

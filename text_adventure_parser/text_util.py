@@ -10,7 +10,6 @@ def list_to_text(items):
     """Displays a natural list of items."""
     count = len(items)
     items.sort()
-    items = [item.capitalize() for item in items]
     result = ""
     if count == 0:
         result = "Nothing"
@@ -21,4 +20,4 @@ def list_to_text(items):
         for item in items[:-1]:
             result += item + ", "
         result = result[:-2] + " and " + final_item
-    return result + "."
+    return result.capitalize() + "."
