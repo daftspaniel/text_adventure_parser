@@ -3,13 +3,14 @@
 
 def get_vocabulary():
     """Returnd the vocabulary list for the game."""
-    verbs = ["exit", "go", "get", "put", "inventory", "look"]
+    verbs = ["quit", "go", "get", "put", "inventory", "look"]
 
-    nouns = ["gold", "north", "south", "east", "west", "help"]
+    nouns = ["gold", "north", "south", "east", "west", "help", "game"]
 
     shorthands = {
         "?": "look help",
         "help": "look help",
+        "quit": "quit game",
         "i": "look inventory",
         "n": "go north",
         "s": "go south",

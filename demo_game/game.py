@@ -33,14 +33,16 @@ class Game:
         result: ParseResult = self.parser.parse(command)
 
         if not result.understood:
-            print("Sorry - I don't know how to '" + command + "'")
+            print("\nSorry - I don't know how to '" + command + "'")
             return
 
-        if result.processed_command == "look help":
+        if result.processed_command == "quit game":
+            exit(0)
+        elif result.processed_command == "look help":
             print("\nWords I know :")
             print(list_to_text(self.parser.get_known_verbs()))
         else:
-            print("I understood the command.\n")
+            print("\nI understood the command.\n")
             print("The game has not implemented '" + command + "' yet.\n")
 
 
