@@ -26,3 +26,11 @@ class Room:
     def items(self):
         """Current items in the room."""
         return self._items
+
+    def remove_item(self, item):
+        """Remove an item from the room."""
+        self._items.remove(item)
+
+    def add_item(self, item):
+        """Add an item to the room."""
+        self._items.append(item)
