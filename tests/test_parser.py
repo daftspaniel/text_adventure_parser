@@ -9,9 +9,9 @@ class TestParser(TestCase):
 
     def test_init(self):
         parser = Parser([1], [1, 2, 3], {})
-        self.assertEqual(parser.verbs, [1])
-        self.assertEqual(parser.nouns, [1, 2, 3])
-        self.assertEqual(parser.shorthands, {})
+        self.assertEqual(parser._verbs, [1])
+        self.assertEqual(parser._nouns, [1, 2, 3])
+        self.assertEqual(parser._shorthands, {})
     
     def test_known_verbs(self):
         self.assertEqual(self.parser.get_known_verbs(), ['go', 'look'])

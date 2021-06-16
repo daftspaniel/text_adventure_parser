@@ -1,4 +1,6 @@
 """ DEMO text adventure game """
+import sys
+
 from text_adventure_parser.parser import Parser
 from text_adventure_parser.parse_result import ParseResult
 from text_adventure_parser.text_util import list_to_text
@@ -37,7 +39,7 @@ class Game:
             return
 
         if result.processed_command == "quit game":
-            exit(0)
+            sys.exit(0)
         elif result.processed_command == "look help":
             print("\nWords I know :")
             print(list_to_text(self.parser.get_known_verbs()))
