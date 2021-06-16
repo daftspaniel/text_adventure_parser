@@ -9,13 +9,13 @@ def yes_no(flag):
 def list_to_text(items):
     """Displays a natural list of items."""
     count = len(items)
-    items.sort()
     result = ""
     if count == 0:
         result = "Nothing"
     elif count == 1:
         result = items[0]
     elif count > 1:
+        items.sort()
         final_item = items[-1]
         for item in items[:-1]:
             result += item + ", "
