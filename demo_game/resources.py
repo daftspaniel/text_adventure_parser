@@ -2,7 +2,7 @@
 
 
 def get_vocabulary():
-    """Returnd the vocabulary list for the game."""
+    """Return the vocabulary list for the game."""
     verbs = ["quit", "go", "get", "drop", "look"]
 
     nouns = ["north", "south", "east", "west", "help", "game", "inventory"]
