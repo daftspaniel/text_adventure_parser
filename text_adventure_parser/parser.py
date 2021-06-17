@@ -12,8 +12,9 @@ class Parser:
         self._shorthands = shorthands
         self._result = ParseResult("")
 
-    def get_known_verbs(self) -> List[str]:
-        """Return the list of known verbs."""
+    @property
+    def verbs(self) -> List[str]:
+        """Return a copy the list of known verbs."""
         return self._verbs.copy()
 
     def parse(self, command: str) -> ParseResult:

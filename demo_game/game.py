@@ -15,11 +15,14 @@ def main():
     print("Type 'help' or '?' to see what words I understand.")
 
     while True:
-        print(DIVIDER)
-        print(game.current_room.description)
-        print("")
-        print("Items : " + list_to_text(game.current_room.items))
-        print("Exits : " + list_to_text(game.current_room.exits))
+
+        if game.redisplay_room:
+            print(DIVIDER)
+            print(game.current_room.description)
+
+            print("\nItems : " + list_to_text(game.current_room.items))
+            print("Exits : " + list_to_text(game.current_room.exits))
 
         command = input("\nWhat now?\n")
         game.handle_user_command(command)
+        print("\n" + game.response)

@@ -14,7 +14,7 @@ class TestParser(TestCase):
         self.assertEqual(parser._shorthands, {})
     
     def test_known_verbs(self):
-        self.assertEqual(self.parser.get_known_verbs(), ['go', 'look'])
+        self.assertEqual(self.parser.verbs, ['go', 'look'])
 
     def test_parse_empty_string(self):
         result = self.parser.parse('')
