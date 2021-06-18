@@ -1,5 +1,5 @@
 from unittest import TestCase
-from text_adventure_parser.text_util import yes_no, list_to_text
+from text_adventure_parser.text_util import yes_no, list_to_text, label_list
 
 
 class TestTextUtil(TestCase):
@@ -23,3 +23,7 @@ class TestTextUtil(TestCase):
     def test_list_to_text_three(self):
         result = list_to_text(['goose', 'owl', 'duck'])
         self.assertEqual(result, 'Duck, goose and owl.')
+
+    def test_label_list(self):
+        result = label_list('Directions', ['north','south', 'west'])
+        self.assertEqual(result, 'Directions: North, south and west.')
