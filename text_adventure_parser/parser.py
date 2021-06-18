@@ -20,9 +20,7 @@ class Parser:
     def parse(self, command: str) -> ParseResult:
         """Parse the raw command from the user and return ParseResult."""
         self._result = ParseResult(command)
-        if len(command) == 0:
-            return self._result
-        if self._preprocess(command):
+        if len(command) > 0 and self._preprocess(command):
             return self._parse()
         return self._result
 
