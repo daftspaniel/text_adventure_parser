@@ -5,7 +5,20 @@ def get_vocabulary():
     """Return the vocabulary list for the game."""
     verbs = ["quit", "go", "get", "drop", "look"]
 
-    nouns = ["north", "south", "east", "west", "help", "game", "inventory"]
+    nouns = [
+        "north",
+        "south",
+        "east",
+        "west",
+        "n",
+        "s",
+        "e",
+        "w",
+        "help",
+        "game",
+        "inventory",
+        "room",
+    ]
 
     nouns.extend(["gold"])
 
@@ -13,6 +26,7 @@ def get_vocabulary():
         "?": "look help",
         "inventory": "look inventory",
         "help": "look help",
+        "look": "look room",
         "quit": "quit game",
         "i": "look inventory",
         "n": "go north",

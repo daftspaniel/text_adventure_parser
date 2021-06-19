@@ -61,10 +61,8 @@ class Engine:
             response = self._handle_get(result)
         elif result.verb == "drop":
             response = self._handle_drop(result)
-        elif result.processed_command == "look inventory":
-            response = label_list("You are carrying", self._player.inventory)
-        elif result.processed_command == "look help":
-            response = label_list("Words I know", self._parser.verbs)
+        elif result.verb == "look":
+            response = self._handle_look(result)
         else:
             response = (
                 "I understood the command.\nHowever '"
@@ -86,6 +84,13 @@ class Engine:
         self._player.collect_item(result.noun)
         self.current_room.remove_item(result.noun)
         return "You take the " + result.noun + "."
+
+    def _handle_look(self, result):
+        if result.noun == "inventory":
+            return label_list("You are carrying", self._player.inventory)
+        if result.noun == "help":
+            return label_list("Words I know", self._parser.verbs)
+        return ""
 
     def _handle_go(self, result):
         direction = result.noun[0]
