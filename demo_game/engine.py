@@ -24,7 +24,7 @@ class Engine:
         self._redisplay_room = True
 
     def _build_world(self):
-        room1 = Room("You are in a small wooden hut.", ["s, e"], ["gold"])
+        room1 = Room("You are in a small wooden hut.", ["s", "e"], ["gold"])
         room3 = Room("You are next to a small pond.", ["w"], [])
         self._arena[0].append(room1)
         self._arena[0].append(room3)
@@ -56,8 +56,11 @@ class Engine:
         elif result.processed_command == "quit game":
             sys.exit(0)
         elif result.verb == "go":
-            self._handle_go(result)
-            return
+            response = self._handle_go(result)
+        elif result.verb == "get":
+            response = self._handle_get(result)
+        elif result.verb == "drop":
+            response = self._handle_drop(result)
         elif result.processed_command == "look inventory":
             response = label_list("You are carrying", self._player.inventory)
         elif result.processed_command == "look help":
@@ -68,19 +71,26 @@ class Engine:
                 + command
                 + "' is not implemented yet."
             )
-        # elif result.verb == "get" and result.noun in self.current_room.items:
-        # self._player.collect_item(result.noun)
-        # self.current_room.remove_item(result.noun)
-        # elif result.verb == "drop" and result.noun in self._player.inventory:
-        # self._player.drop_item(result.noun)
-        # self.current_room.add_item(result.noun)
         self._command_response = response
+
+    def _handle_drop(self, result):
+        if result.noun not in self._player.inventory:
+            return "You are not carrying a " + result.noun + "."
+        self._player.drop_item(result.noun)
+        self.current_room.add_item(result.noun)
+        return "You drop the " + result.noun + "."
+
+    def _handle_get(self, result):
+        if result.noun not in self.current_room.items:
+            return "There is no " + result.noun + " here."
+        self._player.collect_item(result.noun)
+        self.current_room.remove_item(result.noun)
+        return "You take the " + result.noun + "."
 
     def _handle_go(self, result):
         direction = result.noun[0]
         if direction not in self.current_room.exits:
-            self._command_response = "You can't go in that direction."
-            return
+            return "You can't go in that direction."
 
         self._redisplay_room = True
         if direction == "s":
@@ -91,3 +101,5 @@ class Engine:
             self._player.map_x += 1
         elif direction == "w":
             self._player.map_x -= 1
+
+        return ""
