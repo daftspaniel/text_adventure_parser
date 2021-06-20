@@ -50,11 +50,11 @@ class Engine:
         """Parse the user command and action it."""
         result: ParseResult = self._parser.parse(command)
         self._redisplay_room = False
+        if result.processed_command == "quit game":
+            sys.exit(0)
 
         if not result.understood:
             response = "Sorry - I don't know how to '" + command + "'."
-        elif result.processed_command == "quit game":
-            sys.exit(0)
         elif result.verb == "go":
             response = self._handle_go(result)
         elif result.verb == "get":
@@ -65,9 +65,9 @@ class Engine:
             response = self._handle_look(result)
         else:
             response = (
-                "I understood the command.\nHowever '"
-                + command
-                + "' is not implemented yet."
+                "I understood the command '"
+                + result.processed_command
+                + "'' but it is not implemented yet."
             )
         self._command_response = response
 
