@@ -22,6 +22,15 @@ class Engine:
         self._build_world()
         self._command_response = ""
         self._redisplay_room = True
+        self._verb_processor = self._build_verb_processor()
+        
+    def _build_verb_processor(self):
+        proc = {}
+        proc['go'] = self._handle_go
+        proc['get'] = self._handle_get
+        proc['drop'] = self._handle_drop
+        proc['look'] = self._handle_look
+        return proc
 
     def _build_world(self):
         room1 = Room("You are in a small wooden hut.", ["s", "e"], ["gold"])
@@ -48,27 +57,23 @@ class Engine:
 
     def handle_user_command(self, command: str):
         """Parse the user command and action it."""
-        result: ParseResult = self._parser.parse(command)
         self._redisplay_room = False
+        result: ParseResult = self._parser.parse(command)
+
         if result.processed_command == "quit game":
             sys.exit(0)
 
         if not result.understood:
             response = "Sorry - I don't know how to '" + command + "'."
-        elif result.verb == "go":
-            response = self._handle_go(result)
-        elif result.verb == "get":
-            response = self._handle_get(result)
-        elif result.verb == "drop":
-            response = self._handle_drop(result)
-        elif result.verb == "look":
-            response = self._handle_look(result)
+        elif result.verb in self._verb_processor:
+            response = self._verb_processor[result.verb](result)
         else:
             response = (
                 "I understood the command '"
                 + result.processed_command
                 + "'' but it is not implemented yet."
             )
+
         self._command_response = response
 
     def _handle_drop(self, result):
