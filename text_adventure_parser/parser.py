@@ -24,7 +24,7 @@ class Parser:
             return self._parse()
         return self._result
 
-    def _preprocess(self, command):
+    def _preprocess(self, command: str) -> bool:
         short = self._shorthands
         command = command.lower()
         self._result.processed_command = (
@@ -32,7 +32,7 @@ class Parser:
         )
         return self._result.processed_command.find(" ") > -1
 
-    def _parse(self):
+    def _parse(self) -> ParseResult:
         result = self._result
         words = result.processed_command.split(" ")
         result.verb = words[0]

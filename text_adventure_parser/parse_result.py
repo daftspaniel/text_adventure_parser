@@ -5,7 +5,7 @@ from text_adventure_parser.text_util import yes_no
 class ParseResult:
     """Result class to be used by apps to action operations."""
 
-    def __init__(self, command):
+    def __init__(self, command: str):
         self._command = command
         self.processed_command = command
         self.verb = ""
@@ -23,11 +23,11 @@ class ParseResult:
         )
 
     @property
-    def understood(self):
+    def understood(self) -> bool:
         """Overall flag for whether the command was understood."""
         return self.understood_verb and self.understood_noun
 
-    def explain(self):
+    def explain(self) -> str:
         """Plain text explanation of the parsing result."""
         result = "Parser input was  : " + self._command + "\n"
         result += "After preprocessed was  : " + self.processed_command + "\n"

@@ -65,8 +65,10 @@ class Engine:
 
         self._command_response = self._determine_response(command, result)
 
-    def _determine_response(self, command, result) -> str:
-        if not result.understood:
+    def _determine_response(self, command: str, result: ParseResult) -> str:
+        if not result.understood_noun:
+            response = "There is no " + result.noun + " here."
+        elif not result.understood:
             response = "Sorry - I don't know how to '" + command + "'."
         elif result.verb in self._verb_processor:
             response = self._verb_processor[result.verb](result)
@@ -78,21 +80,21 @@ class Engine:
             )
         return response
 
-    def _handle_drop(self, result) -> str:
+    def _handle_drop(self, result: ParseResult) -> str:
         if result.noun not in self._player.inventory:
             return "You are not carrying a " + result.noun + "."
         self._player.drop_item(result.noun)
         self.current_room.add_item(result.noun)
         return "You drop the " + result.noun + "."
 
-    def _handle_get(self, result) -> str:
+    def _handle_get(self, result: ParseResult) -> str:
         if result.noun not in self.current_room.items:
             return "There is no " + result.noun + " here."
         self._player.collect_item(result.noun)
         self.current_room.remove_item(result.noun)
         return "You take the " + result.noun + "."
 
-    def _handle_look(self, result) -> str:
+    def _handle_look(self, result: ParseResult) -> str:
         if result.noun == "room":
             self._redisplay_room = True
             return ""
@@ -109,7 +111,7 @@ class Engine:
         in_inventory = noun in self._player.inventory
         return in_room or in_inventory
 
-    def _handle_go(self, result) -> str:
+    def _handle_go(self, result: ParseResult) -> str:
         direction = result.noun[0]
         if direction not in self.current_room.exits:
             return "You can't go in that direction."
