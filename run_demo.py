@@ -1,4 +1,4 @@
-""" DEMO of Toy verb/noun parser for a game or something """
+""" DEMO of Toy verb/noun parser for a game or something :-) """
 
 from text_adventure_parser.parser import Parser
 from text_adventure_parser.parse_result import ParseResult
